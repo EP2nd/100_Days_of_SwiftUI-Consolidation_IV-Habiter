@@ -8,18 +8,44 @@
 import SwiftUI
 
 struct ContentView: View {
+    
+    @StateObject var habits = Habits()
+    
+    @State private var showingAddNewHabit = false
+    
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundColor(.accentColor)
-            Text("Hello, world!")
+        NavigationView {
+            List {
+                Section("Remaining:") {
+                    ForEach(habits.items, id: \.title) { item in
+                        HStack {
+                            VStack {
+                                Text(item.title)
+                                Text(String(item.completionCount))
+                            }
+                        }
+                    }
+                }
+                
+                Section("Done:") {
+                    
+                }
+            }
+            .navigationTitle("Habiter")
+            .toolbar {
+                Button {
+                    showingAddNewHabit = true
+                } label: {
+                    Image(systemName: "plus")
+                }
+            }
+            .preferredColorScheme(.dark)
         }
-        .padding()
     }
 }
 
 struct ContentView_Previews: PreviewProvider {
+    
     static var previews: some View {
         ContentView()
     }

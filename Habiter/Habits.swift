@@ -16,6 +16,14 @@ class Habits: ObservableObject {
         }
     }
     
+    var remainingHabits: [Habit] {
+        items.filter { $0.isCompleted == false }
+    }
+    
+    var completedHabits: [Habit] {
+        items.filter { $0.isCompleted }
+    }
+    
     init() {
         if let savedHabits = UserDefaults.standard.data(forKey: "habits") {
             if let decodedHabits = try? JSONDecoder().decode([Habit].self, from: savedHabits) {

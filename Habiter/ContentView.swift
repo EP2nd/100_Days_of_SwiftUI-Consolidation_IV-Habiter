@@ -16,20 +16,9 @@ struct ContentView: View {
     var body: some View {
         NavigationView {
             List {
-                Section("Remaining:") {
-                    ForEach(habits.items, id: \.title) { item in
-                        HStack {
-                            VStack {
-                                Text(item.title)
-                                Text(String(item.completionCount))
-                            }
-                        }
-                    }
-                }
+                HabitsSection(habits: habits.remainingHabits, sectionTitle: "Remaining:", deleteHabit: removeHabit)
                 
-                Section("Done:") {
-                    
-                }
+                HabitsSection(habits: habits.completedHabits, sectionTitle: "Done:", deleteHabit: removeHabit)
             }
             .navigationTitle("Habiter")
             .toolbar {
@@ -41,6 +30,13 @@ struct ContentView: View {
             }
             .preferredColorScheme(.dark)
         }
+        .sheet(isPresented: $showingAddNewHabit) {
+            AddHabitView(habits: habits)
+        }
+    }
+    
+    func removeHabit(at offsets: IndexSet) {
+        habits.items.remove(atOffsets: offsets)
     }
 }
 

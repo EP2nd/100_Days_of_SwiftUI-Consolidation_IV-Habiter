@@ -11,14 +11,16 @@ struct ContentView: View {
     
     @StateObject var habits = Habits()
     
+//    @State private var habit: Habit
+    
     @State private var showingAddNewHabit = false
     
     var body: some View {
         NavigationView {
             List {
-                HabitsSection(habits: habits.remainingHabits, sectionTitle: "Remaining:", deleteHabit: removeHabit)
+                HabitsSection(habit: habits.remainingHabits, sectionTitle: "Remaining:", deleteHabit: removeHabit)
                 
-                HabitsSection(habits: habits.completedHabits, sectionTitle: "Done:", deleteHabit: removeHabit)
+                HabitsSection(habit: habits.completedHabits, sectionTitle: "Done:", deleteHabit: removeHabit)
             }
             .navigationTitle("Habiter")
             .toolbar {

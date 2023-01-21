@@ -9,7 +9,8 @@ import SwiftUI
 
 struct HabitsSection: View {
     
-    let habits: [Habit]
+    let habit: [Habit]
+//    let habit: Habit
     
     let sectionTitle: String
     
@@ -17,13 +18,17 @@ struct HabitsSection: View {
     
     var body: some View {
         Section(sectionTitle) {
-            ForEach(habits, id: \.title) { item in
-                HStack {
-                    Text(item.title)
-                    
-                    Spacer()
-                    
-                    Text(String(item.completionCount))
+            ForEach(habit, id: \.title) { item in
+                NavigationLink {
+                    HabitDetailsView(habit: item)
+                } label: {
+                    HStack {
+                        Text(item.title)
+                        
+                        Spacer()
+                        
+                        Text(String(item.completionCount))
+                    }
                 }
             }
             .onDelete(perform: deleteHabit)
@@ -33,6 +38,6 @@ struct HabitsSection: View {
 
 struct HabitsSection_Previews: PreviewProvider {
     static var previews: some View {
-        HabitsSection(habits: [], sectionTitle: "", deleteHabit: { _ in } )
+        HabitsSection(habit: [], sectionTitle: "", deleteHabit: { _ in })
     }
 }

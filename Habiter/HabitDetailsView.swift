@@ -9,7 +9,7 @@ import SwiftUI
 
 struct HabitDetailsView: View {
     
-    @ObservedObject var habits = Habits()
+    @ObservedObject var habits: Habits
     
     var habit: Habit
     
@@ -29,28 +29,23 @@ struct HabitDetailsView: View {
                 HStack {
                     
                     Button {
-                        var loggedCompletion = habit.completionCount
-                        loggedCompletion -= 1
+                        var newActivity = habit
+                        newActivity.completionCount -= 1
                         
-                        guard let index = habits.items.firstIndex(of: habit) else { return }
-                        
-                        let newActivity = Habit(title: habit.title, description: habit.description, isCompleted: habit.isCompleted , completionCount: loggedCompletion)
-                        
-                        habits.items[index] = newActivity
-                                
+                        if let index = habits.items.firstIndex(of: habit) {
+                            habits.items[index] = newActivity
+                        }
                     } label: {
                         Image(systemName: "minus")
                     }
                     
                     Button {
-                        var loggedCompletion = habit.completionCount
-                        loggedCompletion += 1
+                        var newActivity = habit
+                        newActivity.completionCount += 1
                         
-                        guard let index = habits.items.firstIndex(of: habit) else { return }
-                        
-                        let newActivity = Habit(title: habit.title, description: habit.description, isCompleted: habit.isCompleted , completionCount: loggedCompletion)
-                        
-                        habits.items[index] = newActivity
+                        if let index = habits.items.firstIndex(of: habit) {
+                            habits.items[index] = newActivity
+                        }
                     } label: {
                         Image(systemName: "plus")
                     }
@@ -65,6 +60,6 @@ struct HabitDetailsView: View {
 struct HabitDetailsView_Previews: PreviewProvider {
     
     static var previews: some View {
-        HabitDetailsView(habit: Habit(title: "", description: "", isCompleted: true, completionCount: 0))
+        HabitDetailsView(habits: Habits(), habit: Habit.example)
     }
 }

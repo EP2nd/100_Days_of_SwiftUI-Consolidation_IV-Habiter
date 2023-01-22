@@ -33,8 +33,12 @@ struct AddHabitView: View {
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button("Save") {
-                        let item = Habit(title: title, description: description, isCompleted: isCompleted, completionCount: completionCount)
+                        let trimmedTitle = title.trimmingCharacters(in: .whitespaces)
+                        guard trimmedTitle.isEmpty == false else { return }
+                        
+                        let item = Habit(title: trimmedTitle, description: description, isCompleted: isCompleted, completionCount: completionCount)
                         habits.items.append(item)
+                        
                         dismiss()
                     }
                 }

@@ -18,9 +18,9 @@ struct ContentView: View {
     var body: some View {
         NavigationView {
             List {
-                HabitsSection(habit: habits.remainingHabits, sectionTitle: "Remaining:", deleteHabit: removeHabit)
+                HabitsSection(habits: habits, habit: habits.remainingHabits, sectionTitle: "Remaining:", deleteHabit: removeHabit)
                 
-                HabitsSection(habit: habits.completedHabits, sectionTitle: "Done:", deleteHabit: removeHabit)
+                HabitsSection(habits: habits, habit: habits.completedHabits, sectionTitle: "Done:", deleteHabit: removeHabit)
             }
             .navigationTitle("Habiter")
             .toolbar {

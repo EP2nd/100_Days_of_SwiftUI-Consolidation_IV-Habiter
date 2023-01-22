@@ -13,4 +13,6 @@ struct Habit: Codable, Equatable, Identifiable {
     let description: String
     let isCompleted: Bool
     var completionCount = 0
+    
+    static let example = Habit(title: "Example activity", description: "Example description", isCompleted: false)
 }

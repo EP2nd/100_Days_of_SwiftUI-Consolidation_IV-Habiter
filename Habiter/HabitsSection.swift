@@ -9,6 +9,8 @@ import SwiftUI
 
 struct HabitsSection: View {
     
+    @ObservedObject var habits: Habits
+    
     var habit: [Habit]
 //    let habit: Habit
     
@@ -20,7 +22,7 @@ struct HabitsSection: View {
         Section(sectionTitle) {
             ForEach(habit, id: \.title) { item in
                 NavigationLink {
-                    HabitDetailsView(habit: item)
+                    HabitDetailsView(habits: habits, habit: item)
                 } label: {
                     HStack {
                         Text(item.title)
@@ -38,6 +40,6 @@ struct HabitsSection: View {
 
 struct HabitsSection_Previews: PreviewProvider {
     static var previews: some View {
-        HabitsSection(habit: [], sectionTitle: "", deleteHabit: { _ in })
+        HabitsSection(habits: Habits(), habit: [], sectionTitle: "", deleteHabit: { _ in })
     }
 }

@@ -9,7 +9,7 @@ import SwiftUI
 
 struct HabitsSection: View {
     
-    let habit: [Habit]
+    var habit: [Habit]
 //    let habit: Habit
     
     let sectionTitle: String

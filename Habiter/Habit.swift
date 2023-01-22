@@ -12,5 +12,5 @@ struct Habit: Codable, Equatable, Identifiable {
     let title: String
     let description: String
     let isCompleted: Bool
-    var completionCount: Int
+    var completionCount = 0
 }

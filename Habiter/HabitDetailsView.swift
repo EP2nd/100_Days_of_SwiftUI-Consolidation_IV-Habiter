@@ -13,6 +13,8 @@ struct HabitDetailsView: View {
     
     var habit: Habit
     
+    @State private var completionCount = 0
+    
     var body: some View {
         ScrollView {
             VStack(spacing: 50) {
@@ -22,25 +24,33 @@ struct HabitDetailsView: View {
                 Text("Description:\n\(habit.description)")
                     .multilineTextAlignment(.center)
                 
-                Text("Logged: \(habit.completionCount)")
+                Text("Times logged: \(habit.completionCount)")
                 
                 HStack {
+                    
                     Button {
                         var loggedCompletion = habit.completionCount
                         loggedCompletion -= 1
                         
-                        let item = Habit(title: habit.title, description: habit.description, isCompleted: habit.isCompleted , completionCount: loggedCompletion)
+                        guard let index = habits.items.firstIndex(of: habit) else { return }
                         
-                        let index = habits.items.firstIndex(of: habit)
+                        let newActivity = Habit(title: habit.title, description: habit.description, isCompleted: habit.isCompleted , completionCount: loggedCompletion)
                         
-                        
-                        
+                        habits.items[index] = newActivity
+                                
                     } label: {
                         Image(systemName: "minus")
                     }
+                    
                     Button {
                         var loggedCompletion = habit.completionCount
-                        loggedCompletion -= 2
+                        loggedCompletion += 1
+                        
+                        guard let index = habits.items.firstIndex(of: habit) else { return }
+                        
+                        let newActivity = Habit(title: habit.title, description: habit.description, isCompleted: habit.isCompleted , completionCount: loggedCompletion)
+                        
+                        habits.items[index] = newActivity
                     } label: {
                         Image(systemName: "plus")
                     }
@@ -49,7 +59,6 @@ struct HabitDetailsView: View {
             }
             .padding(.top)
         }
-//        .navigationTitle(habit.title)
     }
 }
 

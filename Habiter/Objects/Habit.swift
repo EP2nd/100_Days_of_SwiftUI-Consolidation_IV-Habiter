@@ -8,11 +8,11 @@
 import Foundation
 
 struct Habit: Codable, Equatable, Identifiable {
+    
     var id = UUID()
-    let title: String
-    let description: String
-    let isCompleted: Bool
+    var title: String
+    var description: String
     var completionCount = 0
     
-    static let example = Habit(title: "Example activity", description: "Example description", isCompleted: false)
+    static let example = Habit(title: "Example activity", description: "Example description")
 }

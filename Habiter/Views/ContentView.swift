@@ -11,8 +11,6 @@ struct ContentView: View {
     
     @StateObject var habits = Habits()
     
-//    @State private var habit: Habit
-    
     @State private var showingAddNewHabit = false
     
     var body: some View {
@@ -27,10 +25,10 @@ struct ContentView: View {
                 Button {
                     showingAddNewHabit = true
                 } label: {
-                    Image(systemName: "plus")
+                    /// Label is a better solution for accessibility:
+                    Label("Add new habit", systemImage: "plus")
                 }
             }
-            .preferredColorScheme(.dark)
         }
         .sheet(isPresented: $showingAddNewHabit) {
             AddHabitView(habits: habits)

@@ -12,15 +12,13 @@ struct HabitsSection: View {
     @ObservedObject var habits: Habits
     
     var habit: [Habit]
-//    let habit: Habit
     
-    let sectionTitle: String
-    
-    let deleteHabit: (IndexSet) -> Void
+    var sectionTitle: String
+    var deleteHabit: (IndexSet) -> Void
     
     var body: some View {
         Section(sectionTitle) {
-            ForEach(habit, id: \.title) { item in
+            ForEach(habit) { item in
                 NavigationLink {
                     HabitDetailsView(habits: habits, habit: item)
                 } label: {
@@ -30,6 +28,11 @@ struct HabitsSection: View {
                         Spacer()
                         
                         Text(String(item.completionCount))
+                            .font(.title3)
+                            .padding(10)
+                            .frame(minWidth: 40)
+                            .background(color(for: item))
+                            .clipShape(Circle())
                     }
                 }
             }

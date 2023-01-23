@@ -8,6 +8,7 @@
 import Foundation
 
 class Habits: ObservableObject {
+    
     @Published var items = [Habit]() {
         didSet {
             if let encodedHabits = try? JSONEncoder().encode(items) {
@@ -17,20 +18,22 @@ class Habits: ObservableObject {
     }
     
     var remainingHabits: [Habit] {
-        items.filter { $0.isCompleted == false }
+        items.filter { $0.completionCount == 0 }
     }
     
     var completedHabits: [Habit] {
-        items.filter { $0.isCompleted }
+        items.filter { $0.completionCount != 0 }
     }
     
     init() {
         if let savedHabits = UserDefaults.standard.data(forKey: "habits") {
             if let decodedHabits = try? JSONDecoder().decode([Habit].self, from: savedHabits) {
                 items = decodedHabits
+                
                 return
             }
         }
+        
         items = []
     }
 }

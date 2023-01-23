@@ -13,8 +13,6 @@ struct AddHabitView: View {
     
     @State private var title = ""
     @State private var description = ""
-    @State private var isCompleted = false
-    @State private var completionCount = 0
     
     @Environment(\.dismiss) var dismiss
     
@@ -36,7 +34,7 @@ struct AddHabitView: View {
                         let trimmedTitle = title.trimmingCharacters(in: .whitespaces)
                         guard trimmedTitle.isEmpty == false else { return }
                         
-                        let item = Habit(title: trimmedTitle, description: description, isCompleted: isCompleted, completionCount: completionCount)
+                        let item = Habit(title: trimmedTitle, description: description)
                         habits.items.append(item)
                         
                         dismiss()
@@ -44,7 +42,6 @@ struct AddHabitView: View {
                 }
             }
         }
-        .preferredColorScheme(.dark)
     }
 }
 
